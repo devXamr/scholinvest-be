@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  email    String @unique
+  password String
+  type     String
+}
+
+model Student {
+  id Int @id @default(autoincrement())
+
+  fullName         String
+  email            String @unique
+  courseEnrolled   String
+  uni              String
+  currentCGPA      String
+  annualIncome     String
+  graduationYear   String
+  briefDescription String
+  // under will be array
+  applications     String
+}
+
+model Investor {
+  fullName    String
+  email       String @unique
+  linkedInURL String @unique
+  twitterURL  String @unique
+}
+
+// the name here will be the full name of the student
+model Loan {
+  borrowerName     String
+  loanId           Int     @unique
+  loanAmount       String
+  interestRate     Int
+  return           String
+  loanPurpose      String
+  proposals        String
+  acceptedProposal String
+  proposalAccepted Boolean
+}
+
+// the name here will be fullName of the lender
+model Proposal {
+  proposalId     Int    @unique
+  lenderName     String
+  linkedinHandle String
+  investorRating String
+  loansFunded    Int
+}
